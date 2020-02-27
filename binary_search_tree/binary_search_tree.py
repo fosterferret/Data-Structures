@@ -37,11 +37,14 @@ class BinarySearchTree:
                 return node.value
             else:
                 return get_max_recursion(node.right)
+        return get_max_recursion(self)
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        cb(self.value)
+        self.left and self.left.for_each(cb)
+        self.right and self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
 
