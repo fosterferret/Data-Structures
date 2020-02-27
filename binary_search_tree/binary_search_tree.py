@@ -12,8 +12,10 @@ class BinarySearchTree:
     # Insert the given value into the tree
     def insert(self, value):
         if value < self.value:
-            self.left = BinarySearchTree(
-                value) if not self.left else self.left.insert(value)
+            if not self.left:
+                self.left = BinarySearchTree(value)
+            else:
+                self.left.insert(value)
         else:
             if not self.right:
                 self.right = BinarySearchTree(value)
@@ -51,17 +53,31 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        node.left and self.in_order_print(node.left)
+        print(node.value)
+        node.right and self.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        queue.enqueue(node)
+        while queue.len() > 0:
+            dequeued = queue.dequeue()
+            print(dequeued.value)
+            dequeued.left and queue.enqueue(dequeued.left)
+            dequeued.right and queue.enqueue(dequeued.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = Stack()
+        stack.push(node)
+        while stack.len() > 0:
+            current_node = stack.pop()
+            print(current_node.value)
+            current_node.left and stack.push(current_node.left)
+            current_node.right and stack.push(current_node.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
